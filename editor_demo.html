@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSeed - Editor Interactiu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.png" /> <!-- Favicon -->
+
+    <style>
+        :root {
+            /* Colors de WebSeed */
+            --webseed-dark: #004080;    /* Blau Fosc */
+            --webseed-teal: #40E0D0;    /* Turquesa */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .text-webseed-dark { color: var(--webseed-dark); }
+        .bg-webseed-dark { background-color: var(--webseed-dark); }
+        .bg-webseed-teal { background-color: var(--webseed-teal); }
+        .border-webseed-teal { border-color: var(--webseed-teal); }
+
+        .btn-primary {
+            background-color: var(--webseed-teal);
+            color: var(--webseed-dark);
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #35c0b1; /* Teal una mica més fosc */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* Spinner color fix per al botó principal */
+        #generate-btn .animate-spin {
+             border-left-color: white; 
+        }
+
+        /* Estil per als desplegables de refinament */
+        .refinement-select {
+            appearance: none; /* Elimina l'estil natiu */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3e%3cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3' stroke='%23004080' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3c/path%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem !important; /* Espai per a la icona */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Capçalera de Navegació (Estil WebSeed) -->
+    <header class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-webseed-teal flex items-center justify-center">
+                    <span class="font-bold text-lg text-webseed-dark">WS</span>
+                </div>
+                <h1 class="text-xl font-bold text-webseed-dark">WebSeed Editor Interactiu</h1>
+            </div>
+            <a href="index.html" class="text-sm font-semibold text-gray-600 hover:text-webseed-teal transition duration-150">
+                Tornar a la Landing
+            </a>
+        </div>
+    </header>
+
+    <!-- Contingut Principal de l'Editor -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Columna Esquerra: Controls d'Entrada i Refinament -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Caixa de Prompt (Entrada Principal) -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-lg font-bold text-webseed-dark mb-3">Prompt Inicial (Ideació)</h2>
+                    <textarea id="main-prompt" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-webseed-teal focus:border-webseed-teal transition duration-150" placeholder="Ex: 'Una web per a una cafeteria moderna amb estil industrial i menú digital.' o 'Un gimnàs amb serveis d'entrenament personal...'"></textarea>
+                    
+                    <button id="generate-btn" class="mt-4 w-full py-2 rounded-lg btn-primary font-semibold">
+                        <span id="generate-text">Generar Estructura Base</span>
+                        <div id="loading-spinner" class="hidden w-5 h-5 border-2 border-l-transparent border-webseed-dark rounded-full animate-spin mx-auto"></div>
+                    </button>
+                    <p class="text-xs text-gray-500 mt-2">La IA generarà l'esquelet en qüestió de segons.</p>
+                </div>
+
+                <!-- Opcions de Refinament (Simulació de Modalitats) -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-lg font-bold text-webseed-dark mb-3">Refinament i Ajustaments Fets per IA</h2>
+                    <p class="text-sm text-gray-500 mb-4">Ajusteu la IA per generar variants de text, visuals i estructura.</p>
+                    <div class="space-y-4">
+                        
+                        <!-- 2.1 Refinament de TEXT (Gemini) -->
+                        <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
+                            <label class="block text-sm font-medium text-webseed-dark mb-1">Text (Tonalitat i SEO)</label>
+                            <select id="text-refinement" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
+                                <option value="professional">Professional i Formal (Més SEO)</option>
+                                <option value="friendly">Propera i Informal (Més Social)</option>
+                                <option value="technical">Tècnica i Específica (Més Credibilitat)</option>
+                                <option value="marketing">Persuasiu i Orientat a Venda</option>
+                            </select>
+                        </div>
+                        
+                        <!-- 2.2 Refinament VISUAL (Leonardo AI) -->
+                        <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
+                            <label class="block text-sm font-medium text-webseed-dark mb-1">Visuals (Estil Gràfic)</label>
+                            <select id="visual-refinement" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
+                                <option value="photoreal">Fotorealista (Qualitat d'Estudi)</option>
+                                <option value="vectorial">Vectorial (Flat Design i Icons)</option>
+                                <option value="minimalist">Minimalista (Espai Blanc i Línies Fines)</option>
+                                <option value="industrial">Estil Gràfic: Industrial i Fosc</option>
+                            </select>
+                        </div>
+
+                         <!-- 2.3 Refinament ESTRUCTURA (Tipus de Pàgina) -->
+                        <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
+                            <label class="block text-sm font-medium text-webseed-dark mb-1">Estructura (Maquetació)</label>
+                            <select id="structure-refinement" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
+                                <option value="landing">Landing Page (Una Sola Pàgina Llarg)</option>
+                                <option value="multi">Web Multi-Pàgina (Inici, Serveis, Contacte)</option>
+                                <option value="ecom">Catàleg (Orientat a Productes/Menú)</option>
+                            </select>
+                        </div>
+
+                         <!-- 2.4 Refinament FUNCIONALITAT (InVideo, TTS) -->
+                        <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
+                            <label class="block text-sm font-medium text-webseed-dark mb-1">Funcionalitat (Contingut Dinàmic)</label>
+                            <select id="dynamic-content" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
+                                <option value="none">Cap Contingut Dinàmic</option>
+                                <option value="video">Afegir Video Tutorial (Simulació InVideo)</option>
+                                <option value="tts">Afegir Descripció TTS (Simulació Gemini TTS)</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <button id="apply-refinements-btn" class="mt-4 w-full py-2 bg-webseed-dark text-white rounded-lg font-semibold hover:bg-opacity-90 transition duration-150">
+                        Aplicar Refinaments
+                    </button>
+                </div>
+            </div>
+
+            <!-- Columna Dreta: Previsualització de la Web (Simulació del Resultat) -->
+            <div class="lg:col-span-2">
+                <h2 class="text-xl font-bold text-webseed-dark mb-3">Previsualització de la Web Generada</h2>
+                
+                <div id="preview-container" class="bg-gray-200 rounded-xl shadow-xl p-4 min-h-[60vh] flex items-center justify-center relative">
+                    <div id="initial-message" class="text-center p-8">
+                        <svg class="w-12 h-12 text-webseed-dark mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        <p class="text-webseed-dark font-medium">Introduïu el vostre prompt i feu clic a "Generar Estructura Base" per iniciar la demo.</p>
+                        <p class="text-sm text-gray-500 mt-1">Aquí es carregarà el prototip funcional de la web generada per la IA.</p>
+                    </div>
+
+                    <!-- Contingut Simulat de la Web Generada -->
+                    <div id="generated-content" class="hidden w-full h-full bg-white rounded-lg overflow-y-auto border-4 border-webseed-teal p-0">
+                        <!-- Aquest contingut s'omple dinàmicament via JS -->
+                    </div>
+                </div>
+                
+                <div id="action-buttons" class="mt-4 flex justify-end space-x-4 hidden">
+                    <button class="py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition duration-150">
+                        Exportar HTML
+                    </button>
+                    <button class="py-2 px-4 bg-webseed-dark text-white rounded-lg font-semibold hover:bg-opacity-90 transition duration-150">
+                        Finalitzar i Descarregar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Funció per reemplaçar alert() amb un modal personalitzat
+        function showCustomAlert(message) {
+            const alertModal = document.createElement('div');
+            alertModal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50';
+            alertModal.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full mx-4 transform transition-all">
+                    <h3 class="text-lg font-bold text-webseed-dark mb-3">Atenció</h3>
+                    <p class="text-gray-700 mb-4">${message}</p>
+                    <div class="flex justify-end">
+                        <button id="close-alert-btn" class="py-2 px-4 bg-webseed-teal text-webseed-dark rounded-lg font-semibold hover:bg-opacity-80 transition duration-150">
+                            D'acord
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(alertModal);
+
+            document.getElementById('close-alert-btn').addEventListener('click', () => {
+                document.body.removeChild(alertModal);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elements del DOM
+            const generateBtn = document.getElementById('generate-btn');
+            const applyRefinementsBtn = document.getElementById('apply-refinements-btn');
+            const generateText = document.getElementById('generate-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const initialMessage = document.getElementById('initial-message');
+            const generatedContent = document.getElementById('generated-content');
+            const mainPrompt = document.getElementById('main-prompt');
+            const actionButtons = document.getElementById('action-buttons');
+
+            // Selects de Refinament
+            const textRefinement = document.getElementById('text-refinement');
+            const visualRefinement = document.getElementById('visual-refinement');
+            const structureRefinement = document.getElementById('structure-refinement');
+            const dynamicContent = document.getElementById('dynamic-content'); // Nou
+
+            // --- DADES DEL PROTOTIP (SIMULACIÓ) ---
+            
+            // 1. Plantilles base segons paraules clau
+            const templates = {
+                'cafeteria': {
+                    title: '☕️ Racó del Cafè & Bistro',
+                    heroText: 'El Nostre Racó Digital',
+                    imageKeyword: 'CAFETERIA',
+                    colors: '6f4e37/ffffff', // Marró i blanc
+                    products: ['Espresso 100% Arabica', 'Pastís de Xocolata Artesanal', 'Servei de Catering']
+                },
+                'gimnas': {
+                    title: '🏋️ PowerFit Gym Center',
+                    heroText: 'Entrena sense Límits',
+                    imageKeyword: 'FITNESS+GYM',
+                    colors: '333333/40E0D0', // Negre i Turquesa
+                    products: ['Entrenament Personal', 'Classes de CrossFit', 'Nutrició Esportiva']
+                },
+                'fisioterapia': {
+                    title: '🧘‍♀️ Clínica FisioSalut',
+                    heroText: 'Recupera el teu Benestar',
+                    imageKeyword: 'FISIOTERAPIA+SALUT',
+                    colors: 'A0C0D0/004080', // Blau suau
+                    products: ['Teràpia Manual', 'Rehabilitació Esportiva', 'Punció Seca']
+                }
+            };
+
+            // 2. Textos simulats segons refinament (Gemini)
+            const textVariations = {
+                'professional': "Benvinguts al nostre espai. Oferim serveis d'alta qualitat amb un enfocament professional i orientat a resultats. La satisfacció del client és la nostra prioritat absoluta.",
+                'friendly': "Hola! Ens encanta que estiguis aquí. Som un equip apassionat llest per ajudar-te a aconseguir els teus objectius amb un somriure. Vine a conèixer-nos!",
+                'technical': "Implementem metodologies avançades i equipament d'última generació. Els nostres protocols estan certificats sota els estàndards ISO per garantir l'eficàcia del servei.",
+                'marketing': "No perdis més temps! Transforma la teva vida amb els nostres plans exclusius. Resultats garantits o et tornem els diners. Fes clic i comença avui!"
+            };
+
+            // --- FUNCIONS DE LÒGICA ---
+
+            function detectIndustry(prompt) {
+                const p = prompt.toLowerCase();
+                if (p.includes('gimnas') || p.includes('gimnàs') || p.includes('entrenament') || p.includes('sport')) return 'gimnas';
+                if (p.includes('fisio') || p.includes('teràpia') || p.includes('metge') || p.includes('salut')) return 'fisioterapia';
+                return 'cafeteria'; // Default
+            }
+
+            function renderWebsite(industryKey, textStyle, visualStyle, structureStyle, dynamicStyle) {
+                const template = templates[industryKey];
+                const mainText = textVariations[textStyle];
+                
+                // Lògica Visual (Leonardo AI simulació)
+                let imageUrl = `https://placehold.co/800x300/${template.colors}?text=IMG+${template.imageKeyword}`;
+                let imageClass = "object-cover";
+                let containerClass = "bg-white";
+                let color_icon = "bg-webseed-teal text-webseed-dark"; // Color per als productes/icons
+
+                if (visualStyle === 'vectorial') {
+                    imageUrl = `https://placehold.co/800x300/40E0D0/004080?text=VECTOR+${template.imageKeyword}`;
+                    imageClass = "object-contain p-4 border-4 border-webseed-dark";
+                } else if (visualStyle === 'minimalist') {
+                    imageUrl = `https://placehold.co/800x300/ffffff/333333?text=MINIMAL+${template.imageKeyword}`;
+                    containerClass = "bg-gray-50";
+                } else if (visualStyle === 'industrial') {
+                    imageUrl = `https://placehold.co/800x300/333333/ffcc00?text=INDUSTRIAL+${template.imageKeyword}`;
+                    containerClass = "bg-gray-100";
+                    color_icon = "bg-yellow-500 text-gray-900";
+                }
+
+                // Lògica d'Estructura (Maquetació)
+                let navBar = '';
+                let productSectionTitle = 'Els Nostres Serveis Destacats';
+                let productItems = template.products;
+                
+                if (structureStyle === 'multi' || structureStyle === 'ecom') {
+                    navBar = `
+                        <nav class="hidden sm:flex space-x-6 text-sm font-medium">
+                            <a href="#" class="hover:text-webseed-teal underline">Inici</a>
+                            <a href="#" class="hover:text-webseed-teal">${structureStyle === 'ecom' ? 'Menú/Catàleg' : 'Serveis'}</a>
+                            <a href="#" class="hover:text-webseed-teal">${structureStyle === 'ecom' ? 'Comandes' : 'Contacte'}</a>
+                        </nav>
+                    `;
+                }
+
+                if (structureStyle === 'ecom') {
+                    productSectionTitle = 'El Nostre Catàleg Digital (Amb Botó de Comanda)';
+                    productItems = template.products.map(p => `
+                        <div class="bg-white p-4 rounded-lg shadow border border-gray-100 text-center hover:shadow-md transition">
+                            <div class="font-medium text-gray-800 mb-2">${p}</div>
+                            <button class="text-xs bg-webseed-dark text-white px-3 py-1 rounded-full hover:bg-opacity-80">Comandar</button>
+                        </div>
+                    `);
+                } else {
+                     productItems = template.products.map(p => `
+                        <div class="bg-white p-4 rounded-lg shadow border border-gray-100 text-center hover:shadow-md transition">
+                            <div class="w-10 h-10 ${color_icon} bg-opacity-20 rounded-full mx-auto mb-2 flex items-center justify-center font-bold">★</div>
+                            <span class="font-medium text-gray-800">${p}</span>
+                        </div>
+                    `);
+                }
+
+                // Lògica de Contingut Dinàmic
+                let dynamicBlock = '';
+                if (dynamicStyle === 'video') {
+                    dynamicBlock = `
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold text-webseed-dark mb-2">Video Explicatiu (Generat per InVideo)</h3>
+                            <div class="w-full h-48 bg-gray-400 rounded-xl flex items-center justify-center text-white font-bold">
+                                VÍDEO TUTORIAL SIMULAT
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">S'ha utilitzat IA per generar un resum visual de 30 segons dels nostres serveis principals.</p>
+                        </div>
+                    `;
+                } else if (dynamicStyle === 'tts') {
+                    dynamicBlock = `
+                        <div class="mb-8 p-4 border rounded-lg bg-blue-50">
+                            <h3 class="text-xl font-bold text-webseed-dark mb-2">Descripció d'Àudio (Generat per Gemini TTS)</h3>
+                            <div class="flex items-center space-x-3">
+                                <button class="py-1 px-4 bg-webseed-teal text-webseed-dark rounded-full font-semibold hover:bg-opacity-80 transition duration-150" onclick="showCustomAlert('Simulació: Reproduint la descripció de veu amb la tonalitat \`${textStyle}\`.')">
+                                    <svg class="w-5 h-5 inline mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 011 1v4a1 1 0 11-2 0V7a1 1 0 011-1zm0 8a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                                    Escolta la Descripció
+                                </button>
+                                <span class="text-sm text-gray-600">Veus disponibles: Kore, Puck, Zephyr.</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">La IA ha optimitzat la veu amb la tonalitat escollida.</p>
+                        </div>
+                    `;
+                }
+
+
+                // Construcció de l'HTML Final
+                const html = `
+                    <div class="min-h-full ${containerClass}">
+                        <!-- Header Simulat -->
+                        <div class="bg-webseed-dark text-white p-4 flex justify-between items-center shadow-md">
+                            <span class="font-bold text-lg">${template.title}</span>
+                            ${navBar}
+                            <div class="flex space-x-1">
+                                <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                            </div>
+                        </div>
+
+                        <!-- Contingut Principal -->
+                        <div class="p-8">
+                            <h1 class="text-3xl font-bold text-gray-800 mb-2">${template.heroText}</h1>
+                            <p class="text-sm text-gray-500 mb-6 uppercase tracking-wide">Generat per WebSeed AI • Estil: ${visualStyle.toUpperCase()} | Tonalitat: ${textStyle.toUpperCase()}</p>
+                            
+                            <!-- Imatge (Visuals) -->
+                            <div class="w-full h-64 bg-gray-200 rounded-xl overflow-hidden mb-8 shadow-inner flex items-center justify-center">
+                                <img src="${imageUrl}" class="w-full h-full ${imageClass}" alt="Hero Image">
+                            </div>
+
+                            <!-- Bloc Dinàmic (Video / TTS) -->
+                            ${dynamicBlock}
+
+                            <!-- Text (Gemini) -->
+                            <div class="mb-8">
+                                <h3 class="text-xl font-bold text-webseed-dark mb-2">Sobre Nosaltres</h3>
+                                <p class="text-gray-700 leading-relaxed border-l-4 border-webseed-teal pl-4 bg-gray-50 p-4 rounded-r-lg">
+                                    "${mainText}"
+                                </p>
+                            </div>
+
+                            <!-- Secció Productes (Estructura) -->
+                            <h3 class="text-xl font-bold text-webseed-dark mb-4">${productSectionTitle}</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                ${Array.isArray(productItems) ? productItems.join('') : productItems}
+                            </div>
+                        </div>
+                        
+                        <!-- Footer Simulat -->
+                        <div class="bg-gray-800 text-gray-400 p-4 text-center text-xs mt-8">
+                            &copy; 2024 ${template.title}. Creat amb WebSeed.
+                        </div>
+                    </div>
+                `;
+
+                generatedContent.innerHTML = html;
+            }
+
+            // --- GESTIÓ D'EVENTS ---
+
+            function handleGeneration(isRefinement) {
+                const prompt = mainPrompt.value.trim();
+                
+                if (!prompt && !isRefinement) {
+                    showCustomAlert('Si us plau, introduïu un prompt (ex: cafeteria, gimnàs...) per iniciar la demo.');
+                    return;
+                }
+
+                // UI Loading State
+                const btn = isRefinement ? applyRefinementsBtn : generateBtn;
+                const originalText = btn.innerText;
+                btn.disabled = true;
+                btn.innerHTML = `<div class="w-5 h-5 border-2 border-l-transparent border-white rounded-full animate-spin mx-auto"></div>`;
+                
+                if (!isRefinement) {
+                    loadingSpinner.classList.remove('hidden');
+                    generateText.classList.add('hidden');
+                } else {
+                    // Si és refinament, el spinner del botó de refinament no és el mateix
+                    btn.innerHTML = `<div class="w-5 h-5 border-2 border-l-transparent border-white rounded-full animate-spin mx-auto"></div>`;
+                }
+
+
+                // Simulació de retard (1.5s)
+                setTimeout(() => {
+                    // Restaurar UI
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                    if (!isRefinement) {
+                        loadingSpinner.classList.add('hidden');
+                        generateText.classList.remove('hidden');
+                        generateText.innerText = "Refinar el Disseny";
+                        initialMessage.classList.add('hidden');
+                        generatedContent.classList.remove('hidden');
+                        actionButtons.classList.remove('hidden');
+                    }
+                    if (isRefinement) {
+                        btn.innerText = "Aplicar Refinaments";
+                    }
+
+                    // Lògica de Renderitzat
+                    const industry = detectIndustry(mainPrompt.value.trim()); 
+                    const txtStyle = textRefinement.value;
+                    const visStyle = visualRefinement.value;
+                    const strStyle = structureRefinement.value;
+                    const dynStyle = dynamicContent.value;
+
+                    renderWebsite(industry, txtStyle, visStyle, strStyle, dynStyle);
+
+                }, 1500);
+            }
+
+            generateBtn.addEventListener('click', () => handleGeneration(false));
+            applyRefinementsBtn.addEventListener('click', () => {
+                if(generatedContent.classList.contains('hidden')) {
+                    showCustomAlert("Primer heu de generar una estructura base amb el prompt inicial.");
+                } else {
+                    handleGeneration(true);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

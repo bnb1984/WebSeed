@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSeed: IA Generativa per a la Multimèdia</title>
+    <!-- Càrrega de Tailwind CSS per a un disseny ràpid i professional -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.png" /> <!-- Favicon -->
+
+    <style>
+        /* Estils personalitzats per al scroll suau i la font Inter */
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+        }
+        /* Icona de fletxa amunt amb el color d'accent */
+        .arrow-up {
+            border: solid #40E0D0; /* Verd turquesa */
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+        }
+    </style>
+    <script>
+        // Configuració de Tailwind per als colors del projecte
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#004080',      /* Blau Fosc per Credibilitat */
+                        'accent-light': '#40E0D0',      /* Verd Turquesa per Innovació */
+                        'neutral-light': '#f8f8f8',     /* Gris Molt Clar */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+    <!-- Botó de Tornar a Dalt (Scroll) -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        class="fixed bottom-5 right-5 bg-primary-dark text-white p-3 rounded-full shadow-lg transition duration-300 hover:bg-accent-light focus:outline-none focus:ring-4 focus:ring-accent-light focus:ring-opacity-50 z-50">
+        <span class="arrow-up border-white"></span>
+    </button>
+
+    <!-- Barra de Navegació (Estil professional i net) -->
+    <nav class="sticky top-0 bg-white border-b border-gray-100 shadow-sm z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logotip/Títol Clau -->
+                <a href="#benvinguda" class="text-2xl font-extrabold text-primary-dark tracking-tight">
+                    WebSeed
+                </a>
+                <!-- Menú de Navegació -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#concepte" class="text-gray-900 hover:text-primary-dark px-3 py-2 rounded-md text-sm font-medium transition duration-150">Concepte</a>
+                    <a href="#demo-ia" class="text-gray-900 hover:text-primary-dark px-3 py-2 rounded-md text-sm font-medium transition duration-150">Demo IA</a>
+                    <a href="#valors" class="text-gray-900 hover:text-primary-dark px-3 py-2 rounded-md text-sm font-medium transition duration-150">Valors</a>
+                    <a href="#contacte" class="text-white bg-accent-light hover:bg-primary-dark px-4 py-2 rounded-full text-sm font-semibold transition duration-300 shadow-md">Comença ara</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. HERO / SECCIÓ DE BENVINGUDA (Proximitat, Innovació) -->
+        <section id="benvinguda" class="py-20 lg:py-32 bg-neutral-light">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="text-primary-dark font-semibold text-sm uppercase tracking-widest mb-3">
+                    Reinventant la Presència Digital per a Autònoms i PIMEs
+                </p>
+                <h1 class="text-5xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
+                    <span class="text-primary-dark">WebSeed:</span>Tu Aportes la Visió,<span class="text-accent-light">la IA Crea el Camí</span> 
+                </h1>
+
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+                    Descobreix com la tecnologia et dota de l'estructura, el disseny i l'storytelling per transformar la teva idea de negoci en una presència online professional, coherent i de màxim nivell, sense dependre de grans agències.
+                </p>
+                <!-- Imatge simulada del dashboard / resultat IA -->
+                <div class="bg-white p-4 rounded-xl shadow-2xl border-4 border-accent-light/50 max-w-5xl mx-auto">
+                    <!-- Placeholder de la imatge que simula una generació web (recurs d'IA 1) -->
+                    <img class="w-full rounded-lg" src="4.jpg"
+                         alt="[Imatge d'una maqueta de web moderna generada per IA]">
+                    <p class="mt-4 text-sm text-gray-500 italic">
+                        De la descripció ("Som un consultor de Barcelona") a un disseny funcional en segons.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CONCEPTE CENTRAL (El Problema que Resolem) -->
+        <section id="concepte" class="py-20 lg:py-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+                    <div class="lg:col-span-5 mb-10 lg:mb-0">
+                        <h2 class="text-4xl font-bold text-primary-dark mb-4">El teu repte, la nostra solució.</h2>
+                        <p class="text-lg text-gray-600">
+                            Sabem que el temps és or i que iniciar la teva presència digital sense coneixements tècnics pot ser aclaparador. No et preocupis més. WebSeed trenca definitivament la barrera de la complexitat, transformant les teves idees de negoci en un disseny coherent i professional en qüestió de minuts. La IA no és una substitució, sinó un soci que t'empodera: et proporciona la base d'alta qualitat, i tu només hi afegeixes l'essència única de la teva marca. És hora de tenir el control.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7 space-y-8">
+                        <!-- Valor Únic -->
+                        <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center">
+                                <span class="text-accent-light mr-3">●</span> Valor Únic: Educació i Guia, no només Producte
+                            </h3>
+                            <p class="text-gray-600">
+                                Aquí t'inspirem i et guiem a través del procés creatiu humà-IA. Mostrem l'essència d'un servei que combina exemples visuals amb explicacions curtes per assolir resultats únics i coherents amb la teva marca.
+                            </p>
+                        </div>
+                        <!-- El Nucli Estratègic -->
+                        <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-2 flex items-center">
+                                <span class="text-primary-dark mr-3">●</span> Concepte Central: La Demostració Interactiva
+                            </h3>
+                            <p class="text-gray-600">
+                                WebSeed simula un servei no-code on l'usuari explora i entén el procés de generació de continguts digitals (textos, estructures i estil) amb el suport de la IA generativa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FUNCIÓ I DEMO DE LA IA (Videotutorials, Exemples) -->
+        <section id="demo-ia" class="py-20 lg:py-28 bg-neutral-light">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-primary-dark mb-3">La IA com a Assistent Creatiu</h2>
+                    <p class="text-xl text-gray-600">Mostrem el doble paper de la IA: el concepte narratiu i la producció real.</p>
+                </div>
+
+                <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                    <!-- Columna Esquerra: Simulació del Videotutorial (Recurs d'IA 2) -->
+                    <div class="mb-10 lg:mb-0">
+                        <div class="relative pt-[56.25%] bg-primary-dark rounded-xl shadow-2xl overflow-hidden">
+                             <video controls 
+                                   class="absolute inset-0 w-full h-full object-cover" 
+                                   poster="imatge_cobertura_webseed.jpg"> <source src="WeebSeed.mp4" type="video/mp4">
+                                
+                                El teu navegador no suporta l'etiqueta de vídeo.
+                            </video>
+                        </div>
+                        <p class="mt-4 text-center text-gray-600 italic">
+                            Videotutorial: "De l'esborrany IA al producte final: El refinament humà."
+                        </p>
+                    </div>
+
+                    <!-- Columna Dreta: Explicació de la Funció -->
+                    <div class="space-y-6">
+                        <div class="p-4 rounded-lg border-l-4 border-accent-light bg-white shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900">1. Generació d'Estructura i Contingut</h3>
+                            <p class="text-gray-600">
+                                La IA transforma el text senzill del teu negoci en una proposta visual coherent amb estructura web, textos i estil.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-lg border-l-4 border-primary-dark bg-white shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900">2. Centre de Refinament Humà</h3>
+                            <p class="text-gray-600">
+                                Explicacions detallades sobre com l'usuari intervé: ajustant colors, tipografies i, crucialment, el to de comunicació per aconseguir la singularitat de marca.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-lg border-l-4 border-accent-light bg-white shadow-md">
+                            <h3 class="text-xl font-semibold text-gray-900">3. Aprenentatge i Bones Pràctiques</h3>
+                            <p class="text-gray-600">
+                                Guies que ensenyen a combinar l'automatització amb el teu criteri creatiu, demostrant que la IA és un recurs pedagògic.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. VALORS DEL PROJECTE (Missió) -->
+        <section id="valors" class="py-20 lg:py-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-primary-dark mb-12">Els Valors que Impulsen WebSeed</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <!-- Valor 1: Democratització Digital -->
+                    <div class="p-6 bg-neutral-light rounded-xl shadow-lg border-t-4 border-accent-light text-center">
+                        <div class="text-4xl mb-3 text-accent-light">💡</div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Democratització Digital</h3>
+                        <p class="text-gray-600 text-sm">Fer visible com la IA ajuda qualsevol a construir una identitat digital sòlida i professional.</p>
+                    </div>
+
+                    <!-- Valor 2: Accessibilitat i Simplicitat -->
+                    <div class="p-6 bg-neutral-light rounded-xl shadow-lg border-t-4 border-primary-dark text-center">
+                        <div class="text-4xl mb-3 text-primary-dark">🚀</div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Accessibilitat i Simplicitat</h3>
+                        <p class="text-gray-600 text-sm">Un procés intuïtiu on la tecnologia serveix l'usuari, no a l'inrevés.</p>
+                    </div>
+
+                    <!-- Valor 3: Creativitat i Innovació -->
+                    <div class="p-6 bg-neutral-light rounded-xl shadow-lg border-t-4 border-accent-light text-center">
+                        <div class="text-4xl mb-3 text-accent-light">🎨</div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Creativitat i Innovació</h3>
+                        <p class="text-gray-600 text-sm">La IA com a eina d’inspiració i suport, ampliant els horitzons creatius humans.</p>
+                    </div>
+
+                    <!-- Valor 4: Credibilitat i Confiança -->
+                    <div class="p-6 bg-neutral-light rounded-xl shadow-lg border-t-4 border-primary-dark text-center">
+                        <div class="text-4xl mb-3 text-primary-dark">🔒</div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Credibilitat i Confiança</h3>
+                        <p class="text-gray-600 text-sm">Una estètica professional que genera seguretat en els resultats oferts.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TESTIMONIS SIMULATS / CASOS D'ÚS -->
+        <section id="testimonis" class="py-20 lg:py-28 bg-primary-dark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-white mb-12">L'Impacte Real: Casos d'Ús</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimoni 1: Cafeteria -->
+                    <div class="bg-white p-8 rounded-xl shadow-2xl">
+                        <p class="text-lg italic text-gray-700 mb-4">
+                            "Necessitàvem una web ràpida i elegant per a la cafeteria. WebSeed ens va mostrar com la IA ens donava l'estructura i, nosaltres només vam afegir el nostre toc personal."
+                        </p>
+                        <p class="font-semibold text-primary-dark">- Anna G., Propietària de Cafeteria Local</p>
+                    </div>
+
+                    <!-- Testimoni 2: Consultor -->
+                    <div class="bg-white p-8 rounded-xl shadow-2xl">
+                        <p class="text-lg italic text-gray-700 mb-4">
+                            "Com a consultor autònom, el temps és or. Vaig entendre que la IA eliminava la por a la pàgina en blanc, permetent-me centrar-me en el meu contingut clau."
+                        </p>
+                        <p class="font-semibold text-primary-dark">- Marc P., Consultor de Negocis</p>
+                    </div>
+
+                    <!-- Testimoni 3: Fisioterapeuta -->
+                    <div class="bg-white p-8 rounded-xl shadow-2xl">
+                        <p class="text-lg italic text-gray-700 mb-4">
+                            "El procés és tan visual i senzill! Vaig veure clarament que podia tenir una presència online de qualitat i professional, sense ser tècnic."
+                        </p>
+                        <p class="font-semibold text-primary-dark">- Laura F., Fisioterapeuta</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CALL TO ACTION / CONTACTE (Simulat) -->
+        <section id="contacte" class="py-20 lg:py-28 text-center bg-white border-t border-gray-100">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Estàs preparat per transformar la teva presència digital?</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                WebSeed converteix la tecnologia en una experiència narrativa. Explora, entén i inspira't avui mateix.
+            </p>
+            <a href="editor_demo.html" class="inline-block text-xl font-bold text-white bg-accent-light hover:bg-primary-dark px-10 py-4 rounded-full transition duration-300 shadow-xl hover:shadow-2xl">
+                Comença la Demo Interactiva
+            </a>
+            <p class="mt-4 text-sm text-gray-500">SENSE registre. Experiència 100% didàctica.</p>
+        </section>
+
+    </main>
+
+    <!-- Peu de Pàgina (Footer) -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-bold mb-2">WebSeed: Projecte de Comunicació i IAg</p>
+            <p class="text-sm text-gray-400">Desenvolupat per Baruc Nsue Burcet. &copy; 2025. Tots els drets reservats.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
