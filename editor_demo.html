@@ -73,51 +73,51 @@
             <div class="lg:col-span-1 space-y-6">
                 <!-- Caixa de Prompt (Entrada Principal) -->
                 <div class="bg-white p-6 rounded-xl shadow-lg">
-                    <h2 class="text-lg font-bold text-webseed-dark mb-3">Prompt Inicial (Ideació)</h2>
+                    <h2 class="text-lg font-bold text-webseed-dark mb-3">Prompt inicial (Ideació)</h2>
                     <textarea id="main-prompt" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-webseed-teal focus:border-webseed-teal transition duration-150" placeholder="Ex: 'Una web per a una cafeteria moderna amb estil industrial i menú digital.' o 'Un gimnàs amb serveis d'entrenament personal...'"></textarea>
                     
                     <button id="generate-btn" class="mt-4 w-full py-2 rounded-lg btn-primary font-semibold">
-                        <span id="generate-text">Generar Estructura Base</span>
+                        <span id="generate-text">Generar estructura base</span>
                         <div id="loading-spinner" class="hidden w-5 h-5 border-2 border-l-transparent border-webseed-dark rounded-full animate-spin mx-auto"></div>
                     </button>
                     <p class="text-xs text-gray-500 mt-2">La IA generarà l'esquelet en qüestió de segons.</p>
                 </div>
 
-                <!-- Opcions de Refinament (Simulació de Modalitats) -->
+                <!-- Opcions de refinament (Simulació de Modalitats) -->
                 <div class="bg-white p-6 rounded-xl shadow-lg">
-                    <h2 class="text-lg font-bold text-webseed-dark mb-3">Refinament i Ajustaments Fets per IA</h2>
+                    <h2 class="text-lg font-bold text-webseed-dark mb-3">Refinament amb l'ajuda de la IA</h2>
                     <p class="text-sm text-gray-500 mb-4">Ajusteu la IA per generar variants de text, visuals i estructura.</p>
                     <div class="space-y-4">
                         
                         <!-- 2.1 Refinament de TEXT (Gemini) -->
                         <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
-                            <label class="block text-sm font-medium text-webseed-dark mb-1">Text (Tonalitat i SEO)</label>
+                            <label class="block text-sm font-medium text-webseed-dark mb-1">Text (tonalitat i SEO)</label>
                             <select id="text-refinement" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
-                                <option value="professional">Professional i Formal (Més SEO)</option>
-                                <option value="friendly">Propera i Informal (Més Social)</option>
-                                <option value="technical">Tècnica i Específica (Més Credibilitat)</option>
-                                <option value="marketing">Persuasiu i Orientat a Venda</option>
+                                <option value="professional">Professional i formal (més SEO)</option>
+                                <option value="friendly">Propera i informal (més Social)</option>
+                                <option value="technical">Tècnica i específica (més Credibilitat)</option>
+                                <option value="marketing">Persuasiu i orientat a venda</option>
                             </select>
                         </div>
                         
                         <!-- 2.2 Refinament VISUAL (Leonardo AI) -->
                         <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
-                            <label class="block text-sm font-medium text-webseed-dark mb-1">Visuals (Estil Gràfic)</label>
+                            <label class="block text-sm font-medium text-webseed-dark mb-1">Visuals (estil gràfic)</label>
                             <select id="visual-refinement" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
-                                <option value="photoreal">Fotorealista (Qualitat d'Estudi)</option>
-                                <option value="vectorial">Vectorial (Flat Design i Icons)</option>
-                                <option value="minimalist">Minimalista (Espai Blanc i Línies Fines)</option>
-                                <option value="industrial">Estil Gràfic: Industrial i Fosc</option>
+                                <option value="photoreal">Fotorealista (qualitat d'estudi)</option>
+                                <option value="vectorial">Vectorial (flat design i icons)</option>
+                                <option value="minimalist">Minimalista (espai blanc i línies fines)</option>
+                                <option value="industrial">Estil gràfic: industrial i fosc</option>
                             </select>
                         </div>
 
                          <!-- 2.3 Refinament ESTRUCTURA (Tipus de Pàgina) -->
                         <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
-                            <label class="block text-sm font-medium text-webseed-dark mb-1">Estructura (Maquetació)</label>
+                            <label class="block text-sm font-medium text-webseed-dark mb-1">Estructura (maquetació)</label>
                             <select id="structure-refinement" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
-                                <option value="landing">Landing Page (Una Sola Pàgina Llarg)</option>
-                                <option value="multi">Web Multi-Pàgina (Inici, Serveis, Contacte)</option>
-                                <option value="ecom">Catàleg (Orientat a Productes/Menú)</option>
+                                <option value="landing">Landing page (Una sola pàgina llarg)</option>
+                                <option value="multi">Web multi-pàgina (inici, serveis, contacte)</option>
+                                <option value="ecom">Catàleg (orientat a productes/Menú)</option>
                             </select>
                         </div>
 
@@ -125,28 +125,28 @@
                         <div class="p-3 border rounded-lg border-webseed-teal bg-webseed-teal bg-opacity-10">
                             <label class="block text-sm font-medium text-webseed-dark mb-1">Funcionalitat (Contingut Dinàmic)</label>
                             <select id="dynamic-content" class="w-full p-2 border border-gray-300 rounded-md bg-white text-sm refinement-select">
-                                <option value="none">Cap Contingut Dinàmic</option>
-                                <option value="video">Afegir Video Tutorial (Simulació InVideo)</option>
-                                <option value="tts">Afegir Descripció TTS (Simulació Gemini TTS)</option>
+                                <option value="none">Cap contingut dinàmic</option>
+                                <option value="video">Afegir video tutorial (simulació InVideo)</option>
+                                <option value="tts">Afegir descripció TTS (simulació Gemini TTS)</option>
                             </select>
                         </div>
 
                     </div>
                     <button id="apply-refinements-btn" class="mt-4 w-full py-2 bg-webseed-dark text-white rounded-lg font-semibold hover:bg-opacity-90 transition duration-150">
-                        Aplicar Refinaments
+                        Aplicar refinaments
                     </button>
                 </div>
             </div>
 
             <!-- Columna Dreta: Previsualització de la Web (Simulació del Resultat) -->
             <div class="lg:col-span-2">
-                <h2 class="text-xl font-bold text-webseed-dark mb-3">Previsualització de la Web Generada</h2>
+                <h2 class="text-xl font-bold text-webseed-dark mb-3">Previsualització de la web generada</h2>
                 
                 <div id="preview-container" class="bg-gray-200 rounded-xl shadow-xl p-4 min-h-[60vh] flex items-center justify-center relative">
                     <div id="initial-message" class="text-center p-8">
                         <svg class="w-12 h-12 text-webseed-dark mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
                         <p class="text-webseed-dark font-medium">Introduïu el vostre prompt i feu clic a "Generar Estructura Base" per iniciar la demo.</p>
-                        <p class="text-sm text-gray-500 mt-1">Aquí es carregarà el prototip funcional de la web generada per la IA.</p>
+                        <p class="text-sm text-gray-500 mt-1">Resultat generat automàticament per la IA, per un millor resultat, requereix revisió i validació humana.</p>
                     </div>
 
                     <!-- Contingut Simulat de la Web Generada -->
@@ -160,7 +160,7 @@
                         Exportar HTML
                     </button>
                     <button class="py-2 px-4 bg-webseed-dark text-white rounded-lg font-semibold hover:bg-opacity-90 transition duration-150">
-                        Finalitzar i Descarregar
+                        Finalitzar i descarregar
                     </button>
                 </div>
             </div>
